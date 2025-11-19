@@ -69,7 +69,7 @@ const BLOG_POSTS: BlogPost[] = [
 export default function LatestBlogPosts() {
   return (
     <section
-      id="latest-articles"
+      id="news"
       className="bg-white py-16"
     >
       <div className="mx-auto max-w-6xl px-4">
