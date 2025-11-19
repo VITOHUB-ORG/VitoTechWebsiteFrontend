@@ -17,7 +17,7 @@ const NAV_ITEMS = [
 type SocialLink = {
   href: string;
   label: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
 };
 
 const SOCIAL_LINKS: SocialLink[] = [
