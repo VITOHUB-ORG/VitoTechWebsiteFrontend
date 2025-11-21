@@ -53,7 +53,7 @@ export default function GetMoreWithUs() {
     const interval = setInterval(() => {
       // ongezeka => simu zinasogea kushoto
       setPhoneIndex((prev) => (prev + 1) % PHONE_IMAGES.length);
-    }, 4000); // badili speed ukitaka
+    }, 3000); // badili speed ukitaka
 
     return () => clearInterval(interval);
   }, []);
