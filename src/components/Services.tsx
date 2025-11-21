@@ -1,21 +1,26 @@
 import servicesTablet from "/images/index-11-415x592.webp";
+import { 
+  CpuChipIcon, 
+  CodeBracketIcon, 
+  PaintBrushIcon 
+} from '@heroicons/react/24/outline';
 
 const SERVICE_ITEMS = [
   {
     title: "AI & MACHINE LEARNING",
-    iconClass: "linearicons-phone-in-out",
+    icon: CpuChipIcon,
     description:
       "Our experts implement intelligent automation, predictive analytics, and NLP solutions.",
   },
   {
     title: "SOFTWARE DEVELOPMENT",
-    iconClass: "linearicons-headset",
+    icon: CodeBracketIcon,
     description:
       "We are ready to develop scalable web, mobile, and enterprise applications.",
   },
   {
     title: "UX/UI & DIGITAL DESIGN",
-    iconClass: "linearicons-outbox",
+    icon: PaintBrushIcon,
     description:
       "We offer engaging, user-friendly interfaces and branding for your digital products.",
   },
@@ -56,27 +61,38 @@ export default function Services() {
               </button>
             </div>
 
-            {SERVICE_ITEMS.map((item) => (
-              <article
-                key={item.title}
-                className="flex flex-col items-center rounded-3xl bg-white p-10 text-center shadow-[0_18px_45px_rgba(15,23,42,0.06)]"
-              >
-                {/* icon – tunatumia font icons zako za linearicons */}
-                <div
-                  className={`mb-6 text-[40px] leading-none text-slate-900 ${item.iconClass}`}
-                />
+            {SERVICE_ITEMS.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <article
+                  key={item.title}
+                  className="flex flex-col items-center rounded-3xl bg-white p-10 text-center shadow-[0_18px_45px_rgba(15,23,42,0.06)]"
+                >
+                  {/* Icon with gray triangle background - Alternative style */}
+                  <div className="relative mb-6">
+                    {/* Gray Triangle Background - Alternative style */}
+                    <div className="absolute -inset-4">
+                      <div className="w-16 h-16 bg-gray-100 transform rotate-45 rounded-sm"></div>
+                    </div>
+                    
+                    {/* Black Icon */}
+                    <div className="relative">
+                      <IconComponent className="h-8 w-8 text-gray-900" />
+                    </div>
+                  </div>
 
-                <h5 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-900">
-                  {item.title}
-                </h5>
+                  <h5 className="text-sm font-semibold pt-3 uppercase tracking-[0.16em] text-slate-900">
+                    {item.title}
+                  </h5>
 
-                <div className="mt-4 h-px w-10 bg-slate-200" />
+                  <div className="mt-4 h-px w-10 bg-slate-200" />
 
-                <p className="mt-4 text-sm leading-relaxed text-slate-500">
-                  {item.description}
-                </p>
-              </article>
-            ))}
+                  <p className="mt-4 text-sm leading-relaxed text-slate-500">
+                    {item.description}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>

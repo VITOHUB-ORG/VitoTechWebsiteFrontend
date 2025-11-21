@@ -27,15 +27,15 @@ const PROJECTS: Project[] = [
     category: "ux",
     image: "images/vto/123456.jpeg",
     description:
-      "We work hard on every on designing strategies to deliver top-notch features with great UI/UX and effectively functionalities that you won’t find anywhere else.",
+      "We work hard on every on designing strategies to deliver top-notch features with great UI/UX and effectively functionalities that you won't find anywhere else.",
   },
   {
     id: "ai-automation",
     title: "AI-Automation",
-    category: "web", // pia ipo kwenye web & mobile apps
+    category: "web",
     image: "images/vto/ai.png",
     description:
-      "We work hard on every web developement to deliver top-notch features with great UI that you won’t find anywhere else.",
+      "We work hard on every web developement to deliver top-notch features with great UI that you won't find anywhere else.",
   },
   {
     id: "branding",
@@ -43,7 +43,7 @@ const PROJECTS: Project[] = [
     category: "custom",
     image: "images/vto/branding.jpeg",
     description:
-      "We work hard on every designing and branding strategies to deliver top-notch features with great creativity that you won’t find anywhere else.",
+      "We work hard on every designing and branding strategies to deliver top-notch features with great creativity that you won't find anywhere else.",
   },
   {
     id: "finance-app",
@@ -51,7 +51,7 @@ const PROJECTS: Project[] = [
     category: "qa",
     image: "images/vto/edited vito.png",
     description:
-      "We work hard on every fintech app to deliver top-notch features with great UI that you won’t find anywhere else.",
+      "We work hard on every fintech app to deliver top-notch features with great UI that you won't find anywhere else.",
   },
   {
     id: "chatbots",
@@ -59,15 +59,23 @@ const PROJECTS: Project[] = [
     category: "qa",
     image: "images/vto/bott.jpeg",
     description:
-      "We work hard on every AI automation and ML projects to deliver top-notch features with great UI that you won’t find anywhere else.",
+      "We work hard on every AI automation and ML projects to deliver top-notch features with great UI that you won't find anywhere else.",
   },
   {
-    id: "toms",
+    id: "toms-web",
     title: "TOMS",
     category: "web",
     image: "images/vto/dashi.jpeg",
     description:
-      "We work hard on every app to deliver top-notch features with great UI that you won’t find anywhere else.",
+      "We work hard on every app to deliver top-notch features with great UI that you won't find anywhere else.",
+  },
+  {
+    id: "toms-ml",
+    title: "TOMS",
+    category: "ml",
+    image: "images/vto/dashi.jpeg",
+    description:
+      "We work hard on every app to deliver top-notch features with great UI that you won't find anywhere else.",
   },
   {
     id: "grace",
@@ -75,7 +83,7 @@ const PROJECTS: Project[] = [
     category: "custom",
     image: "images/vto/grace.png",
     description:
-      "We work hard on every app to deliver top-notch features with great UI that you won’t find anywhere else.",
+      "We work hard on every app to deliver top-notch features with great UI that you won't find anywhere else.",
   },
   {
     id: "we-innovate",
@@ -83,7 +91,7 @@ const PROJECTS: Project[] = [
     category: "qa",
     image: "images/vto/viiiiiiii.png",
     description:
-      "We work hard on every app to deliver top-notch features with great UI that you won’t find anywhere else.",
+      "We work hard on every app to deliver top-notch features with great UI that you won't find anywhere else.",
   },
 ];
 
@@ -144,18 +152,37 @@ export default function LatestProjects() {
               className="group relative bg-white shadow-[0_10px_40px_rgba(0,0,0,0.08)]"
             >
               {/* Picha – hatubadili uwiano, tunaiweka tu ijaze upana */}
-              <div className="overflow-hidden">
+              <div className="overflow-hidden relative">
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-auto align-middle transition-transform duration-500 group-hover:scale-[1.03]"
                 />
+                
+                {/* Search/Plus Icon in Center on Hover */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 pointer-events-none">
+                  <div className="bg-white rounded-full p-3">
+                    <svg 
+                      className="w-6 h-6 text-gray-900" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
+                      />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
-              {/* Overlay ya ujumbe “We work hard…” juu ya picha (inaonekana kwenye hover) */}
+              {/* Overlay ya ujumbe "We work hard…" juu ya picha (inaonekana kwenye hover) */}
               <div className="pointer-events-none absolute inset-0 flex items-start justify-center pt-10 md:pt-12">
                 <div className="w-[88%] max-w-xs bg-white shadow-[0_15px_45px_rgba(0,0,0,0.16)] opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out px-6 py-7 text-left">
-                  {/* icon ya “search/plus” */}
+                  {/* icon ya "search/plus" */}
                   <div className="flex items-center mb-4">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-400 mr-3">
                       <span className="text-lg leading-none">+</span>

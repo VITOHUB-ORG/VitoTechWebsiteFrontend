@@ -1,3 +1,4 @@
+// Main file: vitotech-main/Frontend/VitoTech/src/main.tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './App.css';

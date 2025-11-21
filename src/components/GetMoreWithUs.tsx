@@ -39,7 +39,6 @@ const PHONE_IMAGES = [
   "images/phone v1.png",
   "images/Phone v2.png",
   "images/Phone V3.png",
-  "images/Phone v2.png",
 ];
 
 export default function GetMoreWithUs() {

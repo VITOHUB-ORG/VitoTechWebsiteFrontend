@@ -1,21 +1,19 @@
+import { UserIcon } from '@heroicons/react/24/outline';
 
 const TESTIMONIALS = [
   {
     name: "Costantine Boniface",
     role: "Regular client",
-    avatar: "images/user-11-75x75.jpg",
     text: "VitoTech offers a high caliber of resources skilled in Microsoft Azure .NET, mobile and Quality Assurance. They became our true business partners over the past three months.",
   },
   {
     name: "Nicholaus Gilbert",
-    role: "Regular client",
-    avatar: "images/user-12-75x75.jpg",
+    role: "Regular client", 
     text: "VitoTech powered us with a competent team to develop products for banking services. The team has been delivering results within budget and time, which is amazing.",
   },
   {
     name: "Mary Mwita",
     role: "Regular client",
-    avatar: "images/user-20-75x75.jpg",
     text: "VitoTech is a highly skilled and uniquely capable firm with multitudes of talent on-board. We have collaborated on a number of diverse projects that have been a great success.",
   },
 ];
@@ -41,18 +39,14 @@ export default function WhatPeopleSay() {
 
               {/* Top: avatar + name */}
               <div className="flex items-center gap-4">
-                <a href="#" className="shrink-0">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="h-16 w-16 rounded-full bg-gray-200 object-cover"
-                  />
-                </a>
+                <div className="shrink-0">
+                  <div className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center">
+                    <UserIcon className="h-8 w-8 text-gray-600" />
+                  </div>
+                </div>
                 <div>
                   <h4 className="text-base font-semibold text-gray-900">
-                    <a href="#" className="hover:text-gray-700">
-                      {item.name}
-                    </a>
+                    {item.name}
                   </h4>
                   <p className="mt-1 text-xs font-medium uppercase tracking-[0.18em] text-[#6f7dfa]">
                     {item.role}

@@ -11,7 +11,7 @@ const slides = [
     id: 1,
     image: vito1,
     title: "AI Powered Innovation",
-    text: "we deliver AI-powered solutions that automate processes, enhance decision-making, and drive innovation for businesses and individuals.",
+    text: "We deliver AI-powered solutions that automate processes, enhance decision-making, and drive innovation for businesses and individuals.",
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ export default function Swiper() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
-  // auto-slide
+  // Auto-slide
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % slides.length);
@@ -49,7 +49,7 @@ export default function Swiper() {
     <>
       <section
         id="home"
-        className="relative w-full min-h-[calc(100vh-300px)] overflow-hidden bg-black text-white"
+        className="relative w-full min-h-[70vh] sm:min-h-[80vh] md:min-h-[70vh] lg:min-h-[80vh] overflow-hidden bg-black text-white"
       >
         {/* Slides */}
         {slides.map((slide, index) => {
@@ -66,25 +66,25 @@ export default function Swiper() {
               }
             `}
             >
-              {/* Dark gradient overlay juu ya picha */}
-              <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-black/20" />
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-transparent" />
 
-              {/* Content */}
-              <div className="relative z-10 flex h-full w-full items-center">
-                <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-center px-4 py-24 md:px-10 lg:px-16">
-                  <div className="mx-auto max-w-3xl text-center">
-                    <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              {/* Content - Centered */}
+              <div className="relative z-10 flex h-full w-full items-center justify-center">
+                <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+                  <div className="text-center">
+                    <h1 className="text-2xl font-semibold leading-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                       {slide.title}
                     </h1>
-                    <p className="mt-6 text-sm font-medium text-indigo-50/90 md:text-base lg:text-lg">
+                    <p className="mt-4 text-sm leading-relaxed text-gray-200 sm:text-base sm:mt-6 md:text-lg md:leading-loose max-w-2xl mx-auto">
                       {slide.text}
                     </p>
 
-                    <div className="mt-10">
+                    <div className="mt-6 sm:mt-8 md:mt-10">
                       <button
                         type="button"
                         onClick={() => setIsContactOpen(true)}
-                        className="inline-flex items-center justify-center rounded-sm bg-indigo-500 px-12 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-white shadow-sm transition hover:bg-indigo-600"
+                        className="inline-flex items-center justify-center rounded-sm bg-indigo-600 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-sm transition-all hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-black sm:px-8 sm:py-4 sm:text-sm"
                       >
                         Get In Touch
                       </button>
@@ -96,8 +96,33 @@ export default function Swiper() {
           );
         })}
 
-        {/* Pagination ya mobile – dots chini katikati */}
-        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-3 md:hidden">
+        {/* Mobile Navigation Arrows */}
+        <div className="absolute bottom-20 left-4 right-4 flex items-center justify-between md:hidden">
+          <button
+            type="button"
+            onClick={() => goTo(activeIndex - 1)}
+            className="pointer-events-auto rounded-full bg-white/20 p-2 transition-all hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Previous slide"
+          >
+            <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => goTo(activeIndex + 1)}
+            className="pointer-events-auto rounded-full bg-white/20 p-2 transition-all hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Next slide"
+          >
+            <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile Pagination - Bottom Center */}
+        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 sm:bottom-6 md:hidden">
           {slides.map((slide, index) => {
             const isActive = index === activeIndex;
             return (
@@ -105,8 +130,8 @@ export default function Swiper() {
                 key={slide.id}
                 type="button"
                 onClick={() => goTo(index)}
-                className={`h-[3px] w-6 rounded-full transition-all
-                ${isActive ? "w-8 bg-indigo-500" : "bg-white/40"}
+                className={`h-1 rounded-full transition-all duration-300
+                ${isActive ? "w-8 bg-indigo-500" : "w-4 bg-white/40 hover:bg-white/60"}
               `}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -114,10 +139,10 @@ export default function Swiper() {
           })}
         </div>
 
-        {/* Vertical pagination upande wa kulia (desktop) */}
-        <div className="pointer-events-none absolute inset-y-0 right-10 hidden flex-col items-center justify-center gap-6 md:flex lg:right-16">
-          {/* 01/03 imezunguka upande */}
-          <div className="flex items-center gap-1 text-[20px] font-semibold tracking-[0.25em] text-white transform -rotate-90">
+        {/* Desktop Pagination - Right Side */}
+        <div className="pointer-events-none absolute inset-y-0 right-4 hidden flex-col items-center justify-center gap-4 md:flex lg:right-6 xl:right-8">
+          {/* Slide Numbers */}
+          <div className="flex items-center gap-1 text-sm font-semibold tracking-widest text-white transform -rotate-90 lg:text-base">
             <span className="tabular-nums">
               {String(activeIndex + 1).padStart(2, "0")}
             </span>
@@ -127,11 +152,11 @@ export default function Swiper() {
             </span>
           </div>
 
-          {/* mstari mrefu katikati */}
-          <div className="mt-6 h-24 w-px bg-white/40" />
+          {/* Vertical Line */}
+          <div className="h-16 w-px bg-white/40 lg:h-20" />
 
-          {/* bullets kama mwonekano wa template */}
-          <div className="flex flex-col gap-3">
+          {/* Pagination Dots */}
+          <div className="flex flex-col gap-2">
             {slides.map((slide, index) => {
               const isActive = index === activeIndex;
               return (
@@ -139,8 +164,8 @@ export default function Swiper() {
                   key={slide.id}
                   type="button"
                   onClick={() => goTo(index)}
-                  className={`pointer-events-auto h-[3px] w-6 rounded-full transition-all
-                  ${isActive ? "w-8 bg-blue-800" : "bg-white/40"}
+                  className={`pointer-events-auto h-1 rounded-full transition-all duration-300
+                  ${isActive ? "w-8 bg-white" : "w-4 bg-white/40 hover:bg-white/60"}
                 `}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -148,9 +173,34 @@ export default function Swiper() {
             })}
           </div>
         </div>
+
+        {/* Desktop Navigation Arrows */}
+        <div className="absolute bottom-6 left-4 right-4 hidden items-center justify-between md:flex lg:bottom-8 lg:left-6 lg:right-6">
+          <button
+            type="button"
+            onClick={() => goTo(activeIndex - 1)}
+            className="pointer-events-auto rounded-full bg-white/20 p-2 transition-all hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 lg:p-3"
+            aria-label="Previous slide"
+          >
+            <svg className="h-5 w-5 text-white lg:h-6 lg:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => goTo(activeIndex + 1)}
+            className="pointer-events-auto rounded-full bg-white/20 p-2 transition-all hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 lg:p-3"
+            aria-label="Next slide"
+          >
+            <svg className="h-5 w-5 text-white lg:h-6 lg:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </section>
 
-      {/* Modal ya ContactUs – inasimamiwa na Swiper */}
+      {/* ContactUs Modal */}
       <ContactUs open={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </>
   );

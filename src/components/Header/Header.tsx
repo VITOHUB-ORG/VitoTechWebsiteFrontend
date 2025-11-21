@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Nav links katikati */}
-          <nav className="hidden flex-1 items-center justify-center gap-8 md:flex">
+          <nav className="hidden flex-1 items-center justify-center gap-8 lg:flex">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.href}
@@ -107,7 +107,7 @@ const Navbar: React.FC = () => {
           </nav>
 
           {/* Social icons – mwisho kulia (desktop) */}
-          <div className="ml-4 hidden items-center gap-4 text-slate-600 md:flex">
+          <div className="ml-4 hidden items-center gap-4 text-slate-600 lg:flex">
             {SOCIAL_LINKS.map((link) => (
               <a
                 key={link.label}
@@ -128,7 +128,7 @@ const Navbar: React.FC = () => {
 
           {/* Mobile hamburger – icon yenye mistari mitatu */}
           <button
-            className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-800 transition hover:bg-slate-50 md:hidden"
+            className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-800 transition hover:bg-slate-50 lg:hidden"
             aria-label="Open menu"
             onClick={() => setIsOpen(true)}
           >
@@ -140,7 +140,7 @@ const Navbar: React.FC = () => {
       {/* Backdrop (mobile) – juu ya content zote, chini kidogo ya drawer */}
       <div
         onClick={() => setIsOpen(false)}
-        className={`fixed inset-0 z-960 bg-slate-900/40 transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-960 bg-slate-900/40 transition-opacity duration-300 lg:hidden ${
           isOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -149,7 +149,7 @@ const Navbar: React.FC = () => {
 
       {/* MOBILE DRAWER – juu ya kila kitu */}
       <aside
-        className={`fixed inset-y-0 left-0 z-960 w-72 transform bg-white shadow-xl transition-transform duration-300 md:hidden ${
+        className={`fixed inset-y-0 left-0 z-960 w-72 transform bg-white shadow-xl transition-transform duration-300 lg:hidden ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

@@ -1,3 +1,4 @@
+// File: vitotech-main/Frontend/VitoTech/src/pages/Home.tsx
 import { useEffect } from 'react';
 
 import Header from '../components/Header/Header';
@@ -12,7 +13,7 @@ import Cta from '../components/Cta/Cta';
 import LatestBlogPosts from '../components/LatestBlogPosts';
 import ContactInformation from '../components/ContactInformation';
 import ContactForm from '../components/ContactForm';
-import RDGoogleMap from '../components/RDGoogleMap';
+import RDGoogleMap from '../components/RDLeafletMap';
 import Footer from '../components/Footer';
 
 function Home() {

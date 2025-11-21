@@ -9,7 +9,7 @@ export default function Cta() {
       style={{ backgroundImage: `url(${ctaBg})` }}
     >
       {/* Content ndani ya image, upande wa kulia */}
-      <div className="mx-auto flex min-h-[430px] max-w-6xl items-center justify-end px-4 py-12 sm:px-8 lg:px-12">
+      <div className="mx-auto flex min-h-[430px] xl:min-h-[560px] max-w-6xl items-center justify-end px-4 py-12 sm:px-8 lg:px-12">
         <div className="max-w-xl text-right text-white">
           <h2 className="mb-4 text-3xl font-semibold sm:text-4xl lg:text-[38px]">
             Let&apos;s Bring Your Vision To Life
