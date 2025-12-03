@@ -1,22 +1,23 @@
 // src/pages/Admin/Components/SidebarTopbar.tsx
 import { useCallback, useEffect, useState, useRef } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { 
-  FiLayout, 
-  FiMail, 
-  FiRefreshCw, 
-  FiLogOut, 
+import {
+  FiLayout,
+  FiMail,
+  FiRefreshCw,
+  FiLogOut,
   FiMenu,
   FiX,
   FiUser,
   FiLock,
-  FiChevronDown
+  FiChevronDown,
+  FiUserPlus,
 } from "react-icons/fi";
 import {
   getNotifications,
   markNotificationRead,
   markNotificationUnread,
-  getNotificationStats
+  getNotificationStats,
 } from "../../../lib/notifications";
 import { clearAdminToken } from "../../../lib/api";
 
@@ -52,7 +53,7 @@ export default function SidebarTopbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -72,10 +73,17 @@ export default function SidebarTopbar() {
   // Handle click outside to close dropdowns
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
-      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target as Node)) {
+      if (
+        profileDropdownRef.current &&
+
+        !profileDropdownRef.current.contains(event.target as Node)
+      ) {
         setProfileDropdownOpen(false);
       }
     };
@@ -93,7 +101,7 @@ export default function SidebarTopbar() {
     try {
       const [apiMessages, statsData] = await Promise.all([
         getNotifications(),
-        getNotificationStats()
+        getNotificationStats(),
       ]);
 
       const mapped: ContactMessage[] = apiMessages.map((n) => ({
@@ -127,7 +135,8 @@ export default function SidebarTopbar() {
       const target = messages.find((m) => m.id === id);
       if (!target) return;
 
-      const nextStatus: MessageStatus = target.status === "unread" ? "read" : "unread";
+      const nextStatus: MessageStatus =
+        target.status === "unread" ? "read" : "unread";
 
       try {
         if (nextStatus === "read") {
@@ -137,16 +146,13 @@ export default function SidebarTopbar() {
         }
 
         setMessages((prev) =>
-          prev.map((m) =>
-            m.id === id ? { ...m, status: nextStatus } : m
-          )
+          prev.map((m) => (m.id === id ? { ...m, status: nextStatus } : m)),
         );
-        
-        // Update stats
-        setStats(prev => ({
+
+        setStats((prev) => ({
           ...prev,
           unread: nextStatus === "read" ? prev.unread - 1 : prev.unread + 1,
-          read: nextStatus === "read" ? prev.read + 1 : prev.read - 1
+          read: nextStatus === "read" ? prev.read + 1 : prev.read - 1,
         }));
       } catch {
         setError("Failed to update the message status. Please try again.");
@@ -167,15 +173,14 @@ export default function SidebarTopbar() {
 
         setMessages((prev) =>
           prev.map((m) =>
-            unreadIds.includes(m.id) ? { ...m, status: "read" } : m
-          )
+            unreadIds.includes(m.id) ? { ...m, status: "read" } : m,
+          ),
         );
-        
-        // Update stats
-        setStats(prev => ({
+
+        setStats((prev) => ({
           ...prev,
           unread: 0,
-          read: prev.total
+          read: prev.total,
         }));
       } catch {
         setError("Failed to mark all messages as read. Please try again.");
@@ -184,18 +189,15 @@ export default function SidebarTopbar() {
   };
 
   const handleLogout = () => {
-    // Clear all stored data
     clearAdminToken();
     localStorage.removeItem("vt_admin_username");
     localStorage.removeItem("vt_admin_refresh");
-    
-    // Clear any cached data and force clean state
+
     window.history.replaceState(null, "", "/login");
-    
-    // Navigate to login with replace to prevent going back
-    navigate("/login", { 
+
+    navigate("/login", {
       replace: true,
-      state: { timestamp: Date.now() }
+      state: { timestamp: Date.now() },
     });
   };
 
@@ -208,6 +210,13 @@ export default function SidebarTopbar() {
 
   const handleProfileSettings = () => {
     navigate("/admin/profile");
+    setDropdownOpen(false);
+    setProfileDropdownOpen(false);
+    setSidebarOpen(false);
+  };
+
+  const handleCreateAdmin = () => {
+    navigate("/admin/users/create");
     setDropdownOpen(false);
     setProfileDropdownOpen(false);
     setSidebarOpen(false);
@@ -247,7 +256,11 @@ export default function SidebarTopbar() {
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="rounded-md p-2 text-slate-500 hover:bg-slate-100 md:hidden"
             >
-              {sidebarOpen ? <FiX className="h-5 w-5" /> : <FiMenu className="h-5 w-5" />}
+              {sidebarOpen ? (
+                <FiX className="h-5 w-5" />
+              ) : (
+                <FiMenu className="h-5 w-5" />
+              )}
             </button>
 
             <div className="flex items-center gap-4">
@@ -256,10 +269,9 @@ export default function SidebarTopbar() {
                 alt="VitoTech logo"
                 className="h-8 w-auto"
               />
-              
-              {/* Vertical line that aligns with sidebar line */}
-              <div className="h-6 border-r border-slate-300"></div>
-              
+
+              <div className="h-6 border-r border-slate-300" />
+
               <div className="hidden sm:block">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
                   VITOTECH
@@ -272,7 +284,6 @@ export default function SidebarTopbar() {
           </div>
 
           <div className="flex items-center gap-3 sm:gap-4">
-            {/* Stats - hidden on mobile, show on tablet and up */}
             <div className="hidden text-[11px] text-slate-600 md:flex md:items-center md:gap-4">
               <span>Total: {stats.total}</span>
               <span>Unread: {stats.unread}</span>
@@ -291,7 +302,7 @@ export default function SidebarTopbar() {
             </button>
 
             {/* Desktop Admin Dropdown */}
-            <div className="hidden sm:block relative" ref={profileDropdownRef}>
+            <div className="relative hidden sm:block" ref={profileDropdownRef}>
               <button
                 type="button"
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
@@ -306,17 +317,23 @@ export default function SidebarTopbar() {
                   </p>
                   <p className="text-[10px] text-slate-500">Administrator</p>
                 </div>
-                <FiChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${profileDropdownOpen ? 'rotate-180' : ''}`} />
+                <FiChevronDown
+                  className={`h-4 w-4 text-slate-400 transition-transform ${
+                    profileDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
 
               {profileDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                <div className="absolute right-0 z-50 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="py-1">
-                    <div className="px-4 py-2 border-b border-slate-100">
-                      <p className="text-sm font-medium text-slate-900">{adminName || "Admin"}</p>
+                    <div className="border-b border-slate-100 px-4 py-2">
+                      <p className="text-sm font-medium text-slate-900">
+                        {adminName || "Admin"}
+                      </p>
                       <p className="text-xs text-slate-500">Administrator</p>
                     </div>
-                    
+
                     <button
                       onClick={handleProfileSettings}
                       className="flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
@@ -324,7 +341,7 @@ export default function SidebarTopbar() {
                       <FiUser className="h-4 w-4" />
                       <span>Profile Settings</span>
                     </button>
-                    
+
                     <button
                       onClick={handleChangePassword}
                       className="flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
@@ -332,9 +349,17 @@ export default function SidebarTopbar() {
                       <FiLock className="h-4 w-4" />
                       <span>Change Password</span>
                     </button>
-                    
-                    <div className="border-t border-slate-100 my-1"></div>
-                    
+
+                    <button
+                      onClick={handleCreateAdmin}
+                      className="flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
+                    >
+                      <FiUserPlus className="h-4 w-4" />
+                      <span>Create New Admin</span>
+                    </button>
+
+                    <div className="my-1 border-t border-slate-100" />
+
                     <button
                       onClick={handleLogout}
                       className="flex w-full items-center gap-2 px-4 py-2 text-sm text-rose-700 hover:bg-rose-50 transition-colors"
@@ -358,13 +383,15 @@ export default function SidebarTopbar() {
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                <div className="absolute right-0 z-50 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="py-1">
-                    <div className="px-4 py-2 border-b border-slate-100">
-                      <p className="text-sm font-medium text-slate-900">{adminName || "Admin"}</p>
+                    <div className="border-b border-slate-100 px-4 py-2">
+                      <p className="text-sm font-medium text-slate-900">
+                        {adminName || "Admin"}
+                      </p>
                       <p className="text-xs text-slate-500">Administrator</p>
                     </div>
-                    
+
                     <button
                       onClick={handleProfileSettings}
                       className="flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
@@ -372,7 +399,7 @@ export default function SidebarTopbar() {
                       <FiUser className="h-4 w-4" />
                       <span>Profile Settings</span>
                     </button>
-                    
+
                     <button
                       onClick={handleChangePassword}
                       className="flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
@@ -380,9 +407,17 @@ export default function SidebarTopbar() {
                       <FiLock className="h-4 w-4" />
                       <span>Change Password</span>
                     </button>
-                    
-                    <div className="border-t border-slate-100 my-1"></div>
-                    
+
+                    <button
+                      onClick={handleCreateAdmin}
+                      className="flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
+                    >
+                      <FiUserPlus className="h-4 w-4" />
+                      <span>Create New Admin</span>
+                    </button>
+
+                    <div className="my-1 border-t border-slate-100" />
+
                     <button
                       onClick={handleLogout}
                       className="flex w-full items-center gap-2 px-4 py-2 text-sm text-rose-700 hover:bg-rose-50 transition-colors"
@@ -409,10 +444,11 @@ export default function SidebarTopbar() {
         {/* BODY */}
         <div className="flex flex-1">
           {/* SIDEBAR */}
-          <div className={`
-            fixed inset-y-0 left-0 z-40 w-64 transform border-r border-slate-200 bg-white pt-4 transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:z-auto
-            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-          `}>
+          <div
+            className={`fixed inset-y-0 left-0 z-40 w-64 transform border-r border-slate-200 bg-white pt-4 transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:z-auto ${
+              sidebarOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
             {/* Close button for mobile sidebar */}
             <div className="flex items-center justify-between px-4 pb-4 md:hidden">
               <div className="flex items-center gap-3">
@@ -478,15 +514,13 @@ export default function SidebarTopbar() {
             </nav>
           </div>
 
-          {/* Overlay for mobile sidebar */}
           {sidebarOpen && (
-            <div 
+            <div
               className="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"
               onClick={() => setSidebarOpen(false)}
             />
           )}
 
-          {/* MAIN CONTENT */}
           <main className="flex-1 bg-slate-100 px-4 py-6 sm:px-6 lg:px-8">
             {error && (
               <div className="mb-4 rounded-md border border-rose-200 bg-rose-50 px-4 py-2 text-xs text-rose-700">

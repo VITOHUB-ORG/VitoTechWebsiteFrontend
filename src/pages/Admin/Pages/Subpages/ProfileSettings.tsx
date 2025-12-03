@@ -1,8 +1,16 @@
-// src/pages/Admin/Pages/ProfileSettings.tsx
+// src/pages/Admin/Pages/Subpages/ProfileSettings.tsx
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { authedRequest } from "../../../../lib/api";
+
+interface ApiErrorResponseBody {
+  detail?: string;
+}
+
+interface ApiError {
+  responseBody?: ApiErrorResponseBody;
+}
 
 export default function ProfileSettings() {
   const navigate = useNavigate();
@@ -24,15 +32,16 @@ export default function ProfileSettings() {
       });
 
       setSuccess(true);
-      // Update stored username
       localStorage.setItem("vt_admin_username", username);
-      
-      // Redirect to dashboard after 2 seconds
+
       setTimeout(() => {
         navigate("/admin");
       }, 2000);
-    } catch (err: any) {
-      setError(err.responseBody?.detail || "Failed to update username.");
+    } catch (error: unknown) {
+      const err = error as ApiError;
+      setError(
+        err.responseBody?.detail ?? "Failed to update username.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -44,9 +53,7 @@ export default function ProfileSettings() {
         <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
           Profile Settings
         </h1>
-        <p className="mt-1 text-sm text-slate-500">
-          Update your username
-        </p>
+        <p className="mt-1 text-sm text-slate-500">Update your username</p>
       </div>
 
       <div className="max-w-md">

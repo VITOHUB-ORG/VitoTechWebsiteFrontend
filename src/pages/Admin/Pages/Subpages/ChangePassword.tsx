@@ -1,8 +1,16 @@
-// src/pages/Admin/Pages/ChangePassword.tsx
+// src/pages/Admin/Pages/Subpages/ChangePassword.tsx
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { authedRequest } from "../../../../lib/api";
+
+interface ApiErrorResponseBody {
+  detail?: string;
+}
+
+interface ApiError {
+  responseBody?: ApiErrorResponseBody;
+}
 
 export default function ChangePassword() {
   const navigate = useNavigate();
@@ -15,7 +23,7 @@ export default function ChangePassword() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (newPassword !== confirmPassword) {
       setError("New passwords do not match.");
       return;
@@ -31,7 +39,6 @@ export default function ChangePassword() {
     setSuccess(false);
 
     try {
-      // This endpoint would need to be implemented in your backend
       await authedRequest("/api/auth/change-password/", {
         method: "POST",
         body: JSON.stringify({
@@ -41,13 +48,15 @@ export default function ChangePassword() {
       });
 
       setSuccess(true);
-      // Clear form
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      
-    } catch (err: any) {
-      setError(err.responseBody?.detail || "Failed to change password. Please check your current password and try again.");
+    } catch (error: unknown) {
+      const err = error as ApiError;
+      setError(
+        err.responseBody?.detail ??
+          "Failed to change password. Please check your current password and try again.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -146,7 +155,7 @@ export default function ChangePassword() {
               >
                 {submitting ? "Changing Password..." : "Change Password"}
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => navigate("/admin")}

@@ -9,6 +9,7 @@ import Messages from "./pages/Admin/Pages/Messages";
 import MessageDetail from "./pages/Admin/Pages/Subpages/MessageDetail";
 import ProfileSettings from "./pages/Admin/Pages/Subpages/ProfileSettings";
 import ChangePassword from "./pages/Admin/Pages/Subpages/ChangePassword";
+import CreateAdminUser from "./pages/Admin/Pages/Subpages/CreateAdminUser";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="messages/:id" element={<MessageDetail />} />
             <Route path="profile" element={<ProfileSettings />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="users/create" element={<CreateAdminUser />} />
           </Route>
         </Route>
       </Routes>
