@@ -14,7 +14,7 @@ const TEAM = [
     role: "App & FullStack developer CTO",
   },
   {
-    name: "Saimon Aswile",
+    name: "Simon Aswile",
     role: "Graphic Designer CMO",
   },
 ];
