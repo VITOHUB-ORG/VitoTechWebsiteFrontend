@@ -10,7 +10,7 @@ const TEAM = [
     role: "Software Engineer CFO",
   },
   {
-    name: "Paul Thomas",
+    name: "Fidelis Kagashe",
     role: "App & FullStack developer CTO",
   },
   {

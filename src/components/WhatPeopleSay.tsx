@@ -2,7 +2,7 @@ import { UserIcon } from '@heroicons/react/24/outline';
 
 const TESTIMONIALS = [
   {
-    name: "Costantine Boniface",
+    name: "Jeniffer Muagama",
     role: "Regular client",
     text: "VitoTech offers a high caliber of resources skilled in Microsoft Azure .NET, mobile and Quality Assurance. They became our true business partners over the past three months.",
   },
@@ -12,7 +12,7 @@ const TESTIMONIALS = [
     text: "VitoTech powered us with a competent team to develop products for banking services. The team has been delivering results within budget and time, which is amazing.",
   },
   {
-    name: "Mary Mwita",
+    name: "Eliah Mwita",
     role: "Regular client",
     text: "VitoTech is a highly skilled and uniquely capable firm with multitudes of talent on-board. We have collaborated on a number of diverse projects that have been a great success.",
   },
